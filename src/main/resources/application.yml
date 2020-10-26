@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://0.0.0.0:5432/booking_management
+    username: postgres
+    password: postgres
+    continue-on-error: false
+  jpa:
+    properties:
+      hibernate:
+        format_sql: false
+    hibernate:
+      ddl-auto: update
+    database: POSTGRESQL
+    show-sql: false
+  resources:
+    add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+# ========= Logging ========== #
+logging:
+  level:
+    root: ERROR
+    com:
+      burakgungor: DEBUG
