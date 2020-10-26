@@ -14,13 +14,11 @@ public class Ticket extends BaseEntity {
 
     private Boolean isCheckIn = Boolean.FALSE;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "route_id")
     private Route route;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "route_information_id")
     private RouteInformation routeInformation;
 }

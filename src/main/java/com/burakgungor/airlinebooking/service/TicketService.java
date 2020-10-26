@@ -31,6 +31,9 @@ public class TicketService {
     @Autowired
     private RouteService routeService;
 
+    @Autowired
+    private RouteInformationService routeInformationService;
+
     private static final String TICKET_PREFIX = "TCK-";
 
     public Ticket createTicket(TransactionRequest transactionRequest) {
@@ -57,8 +60,8 @@ public class TicketService {
         Ticket ticket = findTicketById(ticketId);
         ticket.setEndDate(LocalDateTime.now());
         ticketRepository.save(ticket);
-        Route route = routeService.findRouteById(ticket.getRoute().getId());
         orderService.unlockSeatPlanForSell(ticket.getRouteInformation().getSeatPlan().get(0));
+        routeInformationService.decreaseCapasity(ticket.getRouteInformation());
         return ticket;
     }
 

@@ -1,5 +1,6 @@
 package com.burakgungor.airlinebooking.service;
 
+import com.burakgungor.airlinebooking.entity.Route;
 import com.burakgungor.airlinebooking.entity.RouteInformation;
 import com.burakgungor.airlinebooking.entity.SeatPlan;
 import com.burakgungor.airlinebooking.exception.AppException;
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -30,6 +28,9 @@ public class RouteInformationService {
     @Autowired
     SeatPlanService seatPlanService;
 
+    private final static String INCREASE = "INCREASE";
+    private final static String DECREASE = "DECREASE";
+
     public RouteInformation findRouteInformationById(UUID routeInformationId) {
         Optional<RouteInformation> routeInformationOptional = routeInformationRepository.findById(routeInformationId);
         if (!routeInformationOptional.isPresent()) {
@@ -38,10 +39,14 @@ public class RouteInformationService {
         return routeInformationOptional.get();
     }
 
-    private void updateFareBySeatPlan(RouteInformation routeInformation) {
+    private void updateFareBySeatPlan(RouteInformation routeInformation, String operation) {
         List<SeatPlan> seatPlans = seatPlanService.findAllByRouteInformationId(routeInformation.getSeatPlan().get(0).getId());
         for (SeatPlan seats : seatPlans) {
-            seats.getAirFare().setFare(seats.getAirFare().getFare() + ((seats.getAirFare().getFare() * 10) / 100));
+            if (Objects.equals(operation, INCREASE)) {
+                seats.getAirFare().setFare(seats.getAirFare().getFare() + ((seats.getAirFare().getFare() * 10) / 100));
+            } else {
+                seats.getAirFare().setFare(seats.getAirFare().getFare() - ((seats.getAirFare().getFare() * 10) / 100));
+            }
             seatPlanService.createAndUpdateSeatPlan(seats);
         }
     }
@@ -73,7 +78,14 @@ public class RouteInformationService {
 
     public void incraseCapasity(OrderRequest orderRequest) {
         if ((orderRequest.getRouteInformation().getCapacity() * 10 / 100) == orderRequest.getRouteInformation().getSelledTicketNumber()) {
-            updateFareBySeatPlan(orderRequest.getRouteInformation());
+            updateFareBySeatPlan(orderRequest.getRouteInformation(),INCREASE);
+        }
+    }
+
+    public void decreaseCapasity(RouteInformation routeInformation) {
+        routeInformation.setSelledTicketNumber(routeInformation.getSelledTicketNumber() -1);
+        if ((routeInformation.getCapacity() * 10 / 100) > routeInformation.getSelledTicketNumber()) {
+            updateFareBySeatPlan(routeInformation,DECREASE);
         }
     }
 }
