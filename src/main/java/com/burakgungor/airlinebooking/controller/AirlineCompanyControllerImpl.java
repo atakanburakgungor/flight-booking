@@ -1,7 +1,6 @@
 package com.burakgungor.airlinebooking.controller;
 
 import com.burakgungor.airlinebooking.entity.AirlineCompany;
-import com.burakgungor.airlinebooking.entity.Airport;
 import com.burakgungor.airlinebooking.search.CustomRsqlVisitor;
 import com.burakgungor.airlinebooking.service.AirlineCompanyService;
 import cz.jirutka.rsql.parser.RSQLParser;
@@ -16,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 

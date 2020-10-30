@@ -37,9 +37,9 @@ public class AirlineCompanyService {
 
     public AirlineCompany deleteAirlineCompany(UUID airlineCompanyId) {
         AirlineCompany airlineCompany = findAirlineCompanyById(airlineCompanyId);
-        airlineCompany.setEndDate(LocalDateTime.now());
-        airlineCompanyRepository.save(airlineCompany);
-        //airlineCompanyRepository.delete(airlineCompany);
+        //airlineCompany.setEndDate(LocalDateTime.now());
+        //airlineCompanyRepository.save(airlineCompany);
+        airlineCompanyRepository.delete(airlineCompany);
         return airlineCompany;
     }
 

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -13,16 +14,16 @@ public class Order extends BaseEntity {
 
     private String orderCode;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "air_craft_id")
     private AirCraft airCraft;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "airport_id")
     private Airport airport;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "passenger_identification_id")
     private PassengerIdentification passengerIdentification;
 
     //private PassengerRequest passengerRequest;

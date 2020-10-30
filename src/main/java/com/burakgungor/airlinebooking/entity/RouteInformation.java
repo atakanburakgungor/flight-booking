@@ -1,14 +1,16 @@
 package com.burakgungor.airlinebooking.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "t_route_information")
 @EqualsAndHashCode(callSuper = false)
 public class RouteInformation extends BaseEntity {
@@ -25,7 +27,11 @@ public class RouteInformation extends BaseEntity {
     @JoinColumn(name = "route_information_id")
     private List<SeatPlan> seatPlan;
 
-    private Long capacity;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "airline_company_id")
+    private AirlineCompany airlineCompany;
 
-    private int selledTicketNumber;
+    private int capacity = 0;
+
+    private int selledTicketNumber = 0;
 }

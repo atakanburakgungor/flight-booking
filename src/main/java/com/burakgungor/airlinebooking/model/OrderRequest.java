@@ -1,24 +1,25 @@
 package com.burakgungor.airlinebooking.model;
 
-import com.burakgungor.airlinebooking.entity.*;
 import lombok.Data;
+
+import java.util.UUID;
 
 @Data
 public class OrderRequest {
 
     private String orderCode;
 
-    private AirCraft airCraft;
+    private UUID airCraftId;
 
-    private Airport airport;
+    private UUID airportId;
 
-    private PassengerIdentification passengerIdentification;
+    private UUID passengerIdentificationId;
 
     //private PassengerRequest passengerRequest;
 
     private Boolean isPaymentOk = false;
 
-    private RouteInformation routeInformation;
+    private UUID seatPlanId;
 
     private Boolean reserved;
 

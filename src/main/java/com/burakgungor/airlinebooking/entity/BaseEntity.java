@@ -23,8 +23,8 @@ abstract class BaseEntity implements Serializable {
     private final static long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flightBookingSeqGen")
-    @SequenceGenerator(name = "flightBookingSeqGen", sequenceName = "flight_booking_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private UUID id;
 
     @CreatedDate

@@ -27,11 +27,12 @@ public interface OrderRequestController {
             @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
             @ApiResponse(code = 409, message = "Conflict", response = Error.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class)})
-    @RequestMapping(value = "/create",
+    @RequestMapping(value = "/{passengerId}/create",
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<OrderRequestResponse> createOrderRequest(@ApiParam(value = "OrderRequest resource body", required = true) @RequestBody OrderRequest OrderRequest
+    ResponseEntity<OrderRequestResponse> createOrderRequest(@ApiParam(value = "ID of the Passenger resource", required = true) @PathVariable("passengerId") UUID passengerId
+            ,@ApiParam(value = "OrderRequest resource body", required = true) @RequestBody OrderRequest OrderRequest
     );
 
     @ApiOperation(value = "Find OrderRequest by ID", nickname = "findOrderRequest", notes = "Returns a single OrderRequest", response = OrderRequest.class, tags = {"OrderRequest"})

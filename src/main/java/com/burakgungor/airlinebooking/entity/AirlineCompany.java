@@ -1,5 +1,6 @@
 package com.burakgungor.airlinebooking.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,8 +39,8 @@ public class AirlineCompany extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "airline_company_id")
+    @JsonIgnore
     private List<Route> routes;
-
 
     public enum OrganizationType {
         COMPANY, PARTNER

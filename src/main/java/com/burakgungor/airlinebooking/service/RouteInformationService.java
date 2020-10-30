@@ -1,6 +1,6 @@
 package com.burakgungor.airlinebooking.service;
 
-import com.burakgungor.airlinebooking.entity.Route;
+import com.burakgungor.airlinebooking.entity.AirlineCompany;
 import com.burakgungor.airlinebooking.entity.RouteInformation;
 import com.burakgungor.airlinebooking.entity.SeatPlan;
 import com.burakgungor.airlinebooking.exception.AppException;
@@ -27,6 +27,9 @@ public class RouteInformationService {
 
     @Autowired
     SeatPlanService seatPlanService;
+
+    @Autowired
+    AirlineCompanyService airlineCompanyService;
 
     private final static String INCREASE = "INCREASE";
     private final static String DECREASE = "DECREASE";
@@ -68,7 +71,9 @@ public class RouteInformationService {
         return routeInformationList;
     }
 
-    public RouteInformation createRouteInformation(RouteInformation routeInformation) {
+    public RouteInformation createRouteInformation(UUID airlineCompanyId,RouteInformation routeInformation) {
+        AirlineCompany airlineCompany = airlineCompanyService.findAirlineCompanyById(airlineCompanyId);
+        routeInformation.setAirlineCompany(airlineCompany);
         return routeInformationRepository.save(routeInformation);
     }
 
@@ -76,16 +81,18 @@ public class RouteInformationService {
         return routeInformationRepository.findAll(specification);
     }
 
-    public void incraseCapasity(OrderRequest orderRequest) {
-        if ((orderRequest.getRouteInformation().getCapacity() * 10 / 100) == orderRequest.getRouteInformation().getSelledTicketNumber()) {
-            updateFareBySeatPlan(orderRequest.getRouteInformation(),INCREASE);
+    public void incraseCapasity(RouteInformation routeInformation) {
+        int capacity = routeInformation.getCapacity();
+        int selledTicketNumber = routeInformation.getSelledTicketNumber();
+        if ((capacity * 10 / 100) == selledTicketNumber) {
+            updateFareBySeatPlan(routeInformation, INCREASE);
         }
     }
 
     public void decreaseCapasity(RouteInformation routeInformation) {
-        routeInformation.setSelledTicketNumber(routeInformation.getSelledTicketNumber() -1);
+        routeInformation.setSelledTicketNumber(routeInformation.getSelledTicketNumber() - 1);
         if ((routeInformation.getCapacity() * 10 / 100) > routeInformation.getSelledTicketNumber()) {
-            updateFareBySeatPlan(routeInformation,DECREASE);
+            updateFareBySeatPlan(routeInformation, DECREASE);
         }
     }
 }

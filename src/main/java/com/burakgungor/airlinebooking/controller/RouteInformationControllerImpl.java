@@ -28,8 +28,8 @@ public class RouteInformationControllerImpl implements RouteInformationControlle
     private RouteInformationService routeInformationService;
 
     @Override
-    public ResponseEntity<RouteInformation> createRouteInformation(RouteInformation RouteInformation) {
-        RouteInformation createdRouteInformation = routeInformationService.createRouteInformation(RouteInformation);
+    public ResponseEntity<RouteInformation> createRouteInformation(UUID airlineCompanyId,RouteInformation routeInformation) {
+        RouteInformation createdRouteInformation = routeInformationService.createRouteInformation(airlineCompanyId,routeInformation);
         return new ResponseEntity<>(createdRouteInformation, HttpStatus.OK);
     }
 

@@ -26,8 +26,8 @@ public class OrderRequestControllerImpl implements OrderRequestController {
     OrderService orderService;
 
     @Override
-    public ResponseEntity<OrderRequestResponse> createOrderRequest(OrderRequest orderRequest) {
-        OrderRequestResponse orderRequestResponse = orderService.createOrderRequest(orderRequest);
+    public ResponseEntity<OrderRequestResponse> createOrderRequest(UUID passengerId,OrderRequest orderRequest) {
+        OrderRequestResponse orderRequestResponse = orderService.createOrderRequest(passengerId,orderRequest);
         return new ResponseEntity<>(orderRequestResponse, HttpStatus.OK);
     }
 

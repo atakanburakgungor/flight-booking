@@ -35,8 +35,10 @@ public class RouteService {
 
     public Route deleteRoute(UUID routeId) {
         Route route = findRouteById(routeId);
-        route.setEndDate(LocalDateTime.now());
-        return routeRepository.save(route);
+        //route.setEndDate(LocalDateTime.now());
+        //return routeRepository.save(route);
+        routeRepository.delete(route);
+        return route;
     }
 
     public List<Route> findAllRoutes() {

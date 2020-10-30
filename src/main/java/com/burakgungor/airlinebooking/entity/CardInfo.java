@@ -1,14 +1,12 @@
 package com.burakgungor.airlinebooking.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.hibernate.annotations.ColumnTransformer;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -23,18 +21,17 @@ public class CardInfo extends BaseEntity {
 
     private String cardType;
 
-    @Column
-    @ColumnTransformer(read = "pgp_sym_decrypt(cardHolderName, 'mySecretKey')", write = "pgp_sym_encrypt(?, 'mySecretKey')")
     private String cardHolderName;
 
-    @Column
-    @ColumnTransformer(read = "pgp_sym_decrypt(cardNumber, 'mySecretKey')", write = "pgp_sym_encrypt(?, 'mySecretKey')")
     private String cardNumber;
 
     private String expiredDate;
 
-    @Column
-    @ColumnTransformer(read = "pgp_sym_decrypt(cvvCode, 'mySecretKey')", write = "pgp_sym_encrypt(?, 'mySecretKey')")
     private String cvvCode;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "card_info_id")
+    @JsonIgnore
+    private Set<Characteristic> characteristics;
 
 }

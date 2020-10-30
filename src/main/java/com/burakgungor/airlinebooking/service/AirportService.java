@@ -35,8 +35,9 @@ public class AirportService {
 
     public Airport deleteAirport(UUID airportId) {
         Airport airport = findAirportById(airportId);
-        airport.setEndDate(LocalDateTime.now());
-        airportRepository.save(airport);
+        //airport.setEndDate(LocalDateTime.now());
+        ///airportRepository.save(airport);
+        airportRepository.delete(airport);
         return airport;
     }
 

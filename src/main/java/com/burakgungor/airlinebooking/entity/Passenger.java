@@ -49,6 +49,9 @@ public class Passenger extends BaseEntity {
     private String countryOfBirth;
 
     @Enumerated(EnumType.STRING)
+    private Type type;
+
+    @Enumerated(EnumType.STRING)
     private MaritalStatus maritalStatus;
 
     private LocalDate birthDate;
@@ -87,5 +90,7 @@ public class Passenger extends BaseEntity {
     public enum Status {
         UNAPPROVED, VALIDATED, DEFUNCT
     }
-
+    public enum Type {
+        TC,FOREIGNER
+    }
 }

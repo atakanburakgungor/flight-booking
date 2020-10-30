@@ -76,7 +76,7 @@ public interface RouteController {
             @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
             @ApiResponse(code = 409, message = "Conflict", response = Error.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class)})
-    @RequestMapping(value = "/find-all-route-by-search-criteria",
+    @RequestMapping(value = "/find-all-by-search-criteria",
             produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<List<Route>> search(@ApiParam(value = "Search criteria", required = true) @RequestParam String search);

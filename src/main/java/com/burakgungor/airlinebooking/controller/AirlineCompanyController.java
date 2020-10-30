@@ -53,7 +53,7 @@ public interface AirlineCompanyController {
             method = RequestMethod.DELETE)
     ResponseEntity<AirlineCompany> deleteAirlineCompany(@ApiParam(value = "ID of the AirlineCompany resource to return", required = true) @PathVariable("airlineCompanyId") UUID airlineCompanyId);
 
-    @ApiOperation(value = "Find all AirlineCompanys", nickname = "findAllAirlineCompany", notes = "Returns a list of AirlineCompany", response = List.class, tags = {"AirlineCompany"})
+    @ApiOperation(value = "Find all AirlineCompanies", nickname = "findAllAirlineCompany", notes = "Returns a list of AirlineCompany", response = List.class, tags = {"AirlineCompany"})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = List.class),
             @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
@@ -61,12 +61,12 @@ public interface AirlineCompanyController {
             @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
             @ApiResponse(code = 409, message = "Conflict", response = Error.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class)})
-    @RequestMapping(value = "/find-all-airline-companies",
+    @RequestMapping(value = "/find-all",
             produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<List<AirlineCompany>> findAllAirlineCompanies();
 
-    @ApiOperation(value = "Find all airline company by searchCriteria", nickname = "findAllAirlineCompanyBySearchCriteria", notes = "Returns a list of airline company", response = List.class, tags = {"airlineCompanies"})
+    @ApiOperation(value = "Find all airline companies by searchCriteria", nickname = "findAllAirlineCompanyBySearchCriteria", notes = "Returns a list of airline company", response = List.class, tags = {"airlineCompanies"})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = List.class),
             @ApiResponse(code = 400, message = "Bad Request", response = Error.class),
@@ -74,7 +74,7 @@ public interface AirlineCompanyController {
             @ApiResponse(code = 405, message = "Method Not allowed", response = Error.class),
             @ApiResponse(code = 409, message = "Conflict", response = Error.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = Error.class)})
-    @RequestMapping(value = "/find-all-airline-company-by-search-criteria",
+    @RequestMapping(value = "/find-all-by-search-criteria",
             produces = {"application/json"},
             method = RequestMethod.GET)
     ResponseEntity<List<AirlineCompany>> search(@ApiParam(value = "Search criteria", required = true) @RequestParam String search);
